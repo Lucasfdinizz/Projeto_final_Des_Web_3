@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loja de Roupas</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/vue-router@4"></script>
+    <link rel="manifest" href="/manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    let registration = await navigator.serviceWorker.register('/service-worker.js')
+                    console.log('Service Worker registered:', registration);
+                } catch (error) {
+                    console.log('Service Worker registration failed:', error);
+                }
+            });
+        }
+        else {
+            console.log('Service Worker not supported'); 
+        }
+    </script>
+</head>
+<body>
+    <%- include('cabecalho.ejs') %>
+    <div id="app">
+        <div class="container">
+            <h1>Confira nossa coleção!</h1>
+            <div class="produtos">
+                <% produtos.forEach(produto => { %>
+                    <div class="produto-box"> 
+                        <h3><%= produto.nome %></h3>
+                        <img class="produto-imagem" src="/_img/<%= produto.imagem %>" alt="<%= produto.nome %>">
+                        <p>Preço: R$ <%= produto.preco.toFixed(2) %></p>
+                        <p>Categoria: <%= produto.categoria %></p>
+                        <p>Tamanho: <%= produto.tamanho %></p>
+                        <p>Descrição: <%= produto.descricao %></p>
+                        <div class="actions">
+                            <form action="/adicionar-ao-carrinho/<%= produto._id %>" method="post">
+                                <button type="submit">Adicionar ao Carrinho</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+            <div class="carrinho">
+                <h3>Carrinho de Compras</h3>
+                <ul>
+                    <li v-for="(item, index) in carrinho" :key="index">
+                        {{ item.nome }} - R$ {{ item.preco.toFixed(2) }}
+                    </li>
+                </ul>
+                <div>
+                    <h3>Total: R$ {{ total.toFixed(2) }}</h3>
+                    <button @click="finalizarCompra">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <script type="module">
+        Vue.createApp({
+            data() {
+                return {
+                    produtos: [],
+                    carrinho: [],
+                    total: 0
+                };
+            },
+            methods: {
+                adicionarAoCarrinho(produto) {
+                    this.carrinho.push(produto);
+                    this.calcularTotal();
+                },
+                calcularTotal() {
+                    this.total = this.carrinho.reduce((total, produto) => total + produto.preco, 0);
+                },
+                finalizarCompra() {
+                    alert('Compra finalizada!');
+                    this.carrinho = [];
+                    this.total = 0;
+                }
+            },
+            mounted() {
+                fetch('/produtos')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.produtos = data;
+                    })
+                    .catch(error => {
+                        console.error('Erro ao carregar produtos:', error);
+                    });
+            }
+        }).mount('#app');
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                Notification.requestPermission();
+                navigator.serviceWorker.register('/worker.js', { scope: '/'})
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                        console.log({ registration });
+                    
+                        registration.addEventListener('message', event => {
+                            console.log('recebeu ', event.data);
+                        });
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

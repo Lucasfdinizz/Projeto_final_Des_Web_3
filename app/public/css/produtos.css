@@ -1,0 +1,151 @@
+/* Reset de estilos */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f85cbc; /* Cor de fundo geral */
+}
+
+/* Estilo para o cabeçalho */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.logo {
+    margin-top: 0px; /* Distância do topo */
+    margin-left: 0px; /* Margem à esquerda */
+    margin-right: 20px; /* Margem à direita */
+    max-width: 200px; /* Largura máxima */
+    max-height: calc(6vh - 4px); /* Altura máxima igual à altura da janela menos a margem superior e inferior */
+}
+
+/* Estilo para a barra de navegação */
+nav {
+    background-color: #0f0f0f;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Estilo para o conteúdo principal */
+.container {
+    max-width: 1200px; /* Largura máxima do conteúdo */
+    margin: 20px auto; /* Centraliza o conteúdo horizontalmente */
+    padding: 0 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px; /* Espaço abaixo do título */
+}
+
+/* Estilo para os produtos */
+.produtos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza os produtos */
+}
+
+.produto-box {
+    width: 300px; /* Largura do box do produto */
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.produto-box img {
+    max-width:300px;
+    max-height:250px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.produto-box h3 {
+    margin-top: 0;
+}
+
+.produto-box p {
+    margin-bottom: 5px;
+}
+
+.produto-box .actions {
+    margin-top: 10px;
+}
+
+/* Estilo para o botão "Adicionar Novo Produto" */
+.link-adicionar {
+    display: block;
+    width: 200px; /* Largura do botão */
+    margin: 20px auto; /* Centraliza horizontalmente */
+    padding: 8px 15px;
+    background-color: #4caf50;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.link-adicionar:hover {
+    background-color: #45a049; /* Altera a cor de fundo ao passar o mouse */
+}
+
+/* Estilo para a div que contém os botões "Editar" e "Excluir" */
+.actions {
+    display: flex; /* Coloca os botões em linha */
+    justify-content: center; /* Centraliza horizontalmente */
+    margin-top: 10px;
+}
+
+/* Estilo para o botão "Editar" */
+.edit {
+    padding: 5px 10px;
+    background-color: #4a90e2; /* Cor azul */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 5px; /* Espaço entre os botões */
+}
+
+.edit:hover {
+    background-color: #357bd8; /* Altera a cor de fundo ao passar o mouse */
+}
+
+/* Estilo para o botão "Excluir" */
+form {
+    margin: 0; /* Remove a margem padrão do formulário */
+}
+
+input[type="submit"] {
+    padding: 5px 10px;
+    background-color: #f44336; /* Cor vermelha */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #d32f2f; /* Altera a cor de fundo ao passar o mouse */
+}

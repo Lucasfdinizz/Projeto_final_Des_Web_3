@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Produto</title>
+    <link rel="stylesheet" href="/css/editarProduto.css">
+</head>
+<body>
+    <%- include('cabecalho.ejs') %>
+    <div class="container">
+        <h1>Editar Produto</h1>
+        <div>
+            <% if (success) { %>
+                <div class="alert alert-success">
+                    <%= success %>
+                </div>
+            <% } %>
+            <% if (error) { %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } %>
+        </div>        
+        <form action="/produtos/<%= produto._id %>?_method=PUT" method="POST">
+            <input type="hidden" name="id" value="<%= produto.id %>">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="<%= produto.nome %>">
+            <label for="categoria">Categoria:</label>
+            <input type="text" id="categoria" name="categoria" value="<%= produto.categoria %>">
+            <label for="preco">Preço:</label>
+            <input type="number" id="preco" name="preco" value="<%= produto.preco %>">
+            <label for="tamanho">Tamanho:</label>
+            <select id="tamanho" name="tamanho">
+                <option value="PP" <%= produto.tamanho === 'PP' ? 'selected' : '' %>>PP</option>
+                <option value="P" <%= produto.tamanho === 'P' ? 'selected' : '' %>>P</option>
+                <option value="M" <%= produto.tamanho === 'M' ? 'selected' : '' %>>M</option>
+                <option value="G" <%= produto.tamanho === 'G' ? 'selected' : '' %>>G</option>
+                <option value="GG" <%= produto.tamanho === 'GG' ? 'selected' : '' %>>GG</option>
+            </select>
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao"><%= produto.descricao %></textarea>
+            <label for="imagem">Imagem:</label>
+            <input type="file" id="imagem" name="imagem">
+            <button class="btn-editar" type="submit">Salvar</button>
+        </form>
+    </div>
+</body>
+</html>

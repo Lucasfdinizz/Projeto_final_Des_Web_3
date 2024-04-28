@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" href="/css/loginCadastroAdmin.css">
+    </head>
+    <body>
+        <% if (messages.success) { %>
+        <div class="alert alert-success">
+            <%= messages.success %>
+        </div>
+        <% } %>
+        <% if (messages.error) { %>
+        <div class="alert alert-error">
+            <%= messages.error %>
+        </div>
+        <% } %>
+        <%- include('cabecalho.ejs') %>
+        <h1>Login Admin</h1>
+        <form action="/admin/login" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha">
+            <input type="submit" value="Login">
+        </form>
+    </body>
+</html>

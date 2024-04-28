@@ -1,0 +1,73 @@
+/* Reset de estilos */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f85cbc; /* Cor de fundo geral */
+}
+
+/* Estilo para o cabeçalho */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.logo {
+    margin-top: 0px; /* Distância do topo */
+    margin-left: 0px; /* Margem à esquerda */
+    margin-right: 20px; /* Margem à direita */
+    max-width: 200px; /* Largura máxima */
+    max-height: calc(6vh - 4px); /* Altura máxima igual à altura da janela menos a margem superior e inferior */
+}
+
+/* Estilo para a barra de navegação */
+nav {
+    background-color: #0f0f0f;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Estilo para os títulos das seções */
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para as seções */
+section {
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Estilo para as listas */
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+/* Estilo para os itens das listas */
+li {
+    margin-bottom: 10px;
+}

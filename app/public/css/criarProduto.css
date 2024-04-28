@@ -1,0 +1,132 @@
+/* Reset de estilos */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f85cbc; /* Cor de fundo geral */
+}
+
+/* Estilo para o cabeçalho */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.logo {
+    margin-top: 0px; /* Distância do topo */
+    margin-left: 0px; /* Margem à esquerda */
+    margin-right: 20px; /* Margem à direita */
+    max-width: 200px; /* Largura máxima */
+    max-height: calc(6vh - 4px); /* Altura máxima igual à altura da janela menos a margem superior e inferior */
+}
+
+/* Estilo para a barra de navegação */
+nav {
+    background-color: #0f0f0f;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Estilo para o conteúdo principal */
+.container {
+    max-width: 1200px; /* Largura máxima do conteúdo */
+    margin: 20px auto; /* Centraliza o conteúdo horizontalmente */
+    padding: 0 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px; /* Espaço abaixo do título */
+}
+
+/* Estilo para o formulário de cadastro de produto */
+.container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    text-align: center;
+}
+
+form {
+    text-align: left; /* Alinhamento do texto do formulário */
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="number"],
+form select,
+form textarea,
+form input[type="file"],
+form input[type="submit"] {
+    width: calc(100% - 22px);
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Garante que o padding não altere a largura */
+}
+
+/* Estilo para o botão de cadastrar */
+form button[type="submit"] {
+    width: 200px; /* Definindo a largura desejada */
+    margin: 0 auto; /* Centralizando o botão horizontalmente */
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    display: block; /* Faz o botão ocupar toda a largura do container */
+    padding: 10px 0; /* Adicionando espaço interno ao botão */
+    font-size: 20px; /* Tamanho da fonte */
+}
+
+form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.alert-container {
+    text-align: center;
+}
+
+.alert {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #28a745; /* Verde */
+    color: #fff;
+}
+
+.alert-danger {
+    background-color: #dc3545; /* Vermelho */
+    color: #fff;
+}

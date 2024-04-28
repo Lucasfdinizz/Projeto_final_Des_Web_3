@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/sobre.css">
+    </head>
+    <body>
+        <%- include('cabecalho.ejs') %>
+        <h2><%= nome %></h2>
+        <section>
+            <h2>Formações</h2>
+            <ul>
+                <% for (let formacao of formacoes) { %>
+                    <li><%= formacao %></li>
+                <% } %>
+            </ul>
+        </section>
+        <section>
+            <h2>Experiências profissionais</h2>
+            <ul>
+                <% for (let experiencia of experiencias) { %>
+                    <li><%= experiencia %></li>
+                <% } %>
+            </ul>
+        </section>
+    </body>
+</html>

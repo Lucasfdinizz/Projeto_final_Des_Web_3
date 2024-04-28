@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  node:
+    build: .
+    env_file: .env
+    ports:
+      - "81:3000"
+    volumes:
+      - ./app:/home/node/app
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
