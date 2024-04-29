@@ -13,18 +13,6 @@ const multer = require('multer');
 
 require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
 
-// Configuração do multer para upload de imagens
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/_img'); // Salva as imagens na pasta 'public/_img'
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
-
-const upload = multer({ storage: storage });
-
 // Defina as chaves VAPID - você pode gerar essas chaves usando o web-push
 webpush.setVapidDetails(
     'mailto:seuemail@example.com',
@@ -50,6 +38,13 @@ app.use(session({
     cookie: { maxAge: 60000 }
 }));
 app.use(flash()); // Deve ser configurado antes das rotas que precisam acessar req.flash()
+
+app.use((req, res, next) => {
+    res.locals.messages = req.session.messages;
+    delete req.session.messages;
+    next();
+});
+
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -64,6 +59,45 @@ app.use((req, res, next) => {
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+let subscriptions = [];
+
+// Rota para salvar as subscrições
+app.post('/subscribe', (req, res) => {
+    subscription = req.body;
+    subscriptions.push(subscription);
+    console.log({ subscriptions });
+    res.status(201).json({});
+});
+
+
+app.get('/push', (req, res) => {
+    res.render('push');
+});
+
+// Rota para enviar notificações
+app.get('/notificar', (req, res) => {
+    const payload = JSON.stringify({ title: req.query.msg });
+    console.log('notificando', subscriptions);
+    for (let subscription of subscriptions) {
+        webpush.sendNotification(subscription, payload)
+            .catch(error => console.error('Erro ao notificar:', error));
+        console.log('notificando', subscription);
+    }
+    res.send('ok');
+});
+
+// Configuração do multer para upload de imagens
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/_img'); // Salva as imagens na pasta 'public/_img'
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
 // Registrar o service worker
 app.get('/worker.js', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'worker.js'));
@@ -72,7 +106,7 @@ app.get('/worker.js', (req, res) => {
 app.get('/', async (req, res) => {
     try {
         const produtos = await Produto.find(); // Consulta todos os produtos no banco de dados
-        res.render('index', { produtos: produtos, carrinho: req.session.carrinho }); // Passa a lista de produtos e o carrinho para o template
+        res.render('index', { produtos, carrinho: req.session.carrinho || [] }); // Passa a lista de produtos e o carrinho para o template
     } catch (error) {
         console.error('Erro ao carregar produtos:', error);
         res.status(500).send('Erro ao carregar produtos');
@@ -97,41 +131,16 @@ app.post('/admin/create', async (req, res) => {
 });
 
 // Rota para processar o formulário de login de admin
-app.post('/admin', async (req, res) => {
+app.post('/admin/login', async (req, res) => {
     try {
         // Código para efetuar o login do admin
         req.flash('success', 'Login realizado com sucesso');
-        res.redirect('/admin');
+        res.redirect('/admin/login');
     } catch (error) {
         console.error('Erro ao realizar login:', error);
         req.flash('error', 'Erro ao realizar login');
         res.redirect('/admin/login');
     }
-});
-
-let subscriptions = [];
-// Rota para salvar as subscrições
-app.post('/subscribe', (req, res) => {
-    subscription = req.body;
-    subscriptions.push(subscription);
-    console.log({ subscriptions });
-    res.status(201).json({});
-});
-
-app.get('/push', (req, res) => {
-    res.render('push');
-});
-
-// Rota para enviar notificações
-app.get('/notificar', (req, res) => {
-    const payload = JSON.stringify({ title: req.query.msg });
-    console.log('notificando', subscriptions);
-    for (let subscription of subscriptions) {
-        webpush.sendNotification(subscription, payload)
-            .catch(error => console.error('Erro ao notificar:', error));
-        console.log('notificando', subscription);
-    }
-    res.send('ok');
 });
 
 const carrinho = [];
@@ -222,12 +231,6 @@ app.put('/produtos/:id', async (req, res) => {
         req.flash('error', 'Erro ao atualizar produto');
         res.redirect('/produtos');
     }
-});
-
-app.use((req, res, next) => {
-    res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
-    next();
 });
 
 app.use('/', router);
