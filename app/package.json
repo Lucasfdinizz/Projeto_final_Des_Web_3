@@ -1,15 +1,15 @@
 {
-  "name": "cerca",
+  "name": "produto",
   "version": "1.0.0",
-  "description": "Sistema para cálculo de áreas de cercas em formato de heptágono",
+  "description": "Loja de Roupas",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"
   },
   "keywords": [
-    "Heptágono",
-    "Cálculo de Áreas",
-    "Construção"
+    "Roupas",
+    "Moda",
+    "Loja"
   ],
   "author": "Lucas de França Diniz",
   "license": "Apache-2.0",

@@ -1,18 +1,14 @@
 {
   "name": "Loja de Roupas",
   "short_name": "Roupas",
-  "description": "Uma loja online de roupas",
-  "lang": "pt-BR",
   "theme_color": "#ff00ff",
   "background_color": "#ffff00",
   "display": "standalone",
-  "orientation": "any",
   "start_url": "/index",
-  "icons": [
-    {
+  "icons": [  {
       "src": "/_img/logo.png",
       "sizes": "192x192",
       "type": "image/png"
-    }
+    } 
   ]
 }

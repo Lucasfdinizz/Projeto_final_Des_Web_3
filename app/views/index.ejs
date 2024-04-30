@@ -18,7 +18,7 @@
             });
         }
         else {
-            console.log('Service Worker not supported'); 
+            console.log('Não tem service Worker'); 
         }
     </script>
 </head>
@@ -100,8 +100,12 @@
                 navigator.serviceWorker.register('/worker.js', { scope: '/'})
                     .then(registration => {
                         console.log('Service Worker registered:', registration);
+                        // const worker = new Worker('_js/worker.js');
                         console.log({ registration });
+                        // Envia dados para o Worker
+                        // registration.postMessage('oi da página');
                     
+                        // Escuta a resposta do Worker
                         registration.addEventListener('message', event => {
                             console.log('recebeu ', event.data);
                         });

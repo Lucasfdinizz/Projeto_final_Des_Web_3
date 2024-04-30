@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const router = require('./routes/index');
-const Produto = require('./models/Produto');
 const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
@@ -10,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const webpush = require('web-push');
 const multer = require('multer');
+const Produto = require('./models/Produto');
+const router = require('./routes/index');
 
 require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
 
@@ -20,7 +20,6 @@ webpush.setVapidDetails(
     process.env.VAPID_PRIVATE_KEY
 );
 
-// Conexão com o MongoDB
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Conexão com o MongoDB estabelecida com sucesso');
@@ -29,7 +28,6 @@ mongoose.connect(process.env.MONGODB_URI)
         console.error('Erro ao estabelecer conexão com o MongoDB:', error);
     });
 
-// Configurações do Express
 app.use(methodOverride('_method'));
 app.use(session({
     secret: process.env.SEGREDO_JWT,
@@ -37,7 +35,7 @@ app.use(session({
     saveUninitialized: true,
     cookie: { maxAge: 60000 }
 }));
-app.use(flash()); // Deve ser configurado antes das rotas que precisam acessar req.flash()
+app.use(flash());
 
 app.use((req, res, next) => {
     res.locals.messages = req.session.messages;
@@ -49,13 +47,11 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Middleware para log de requisições
 app.use((req, res, next) => {
     console.log(`[${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}] ${req.method} to ${req.url}`);
     next();
 });
 
-// Configuração do mecanismo de templates
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -68,7 +64,6 @@ app.post('/subscribe', (req, res) => {
     console.log({ subscriptions });
     res.status(201).json({});
 });
-
 
 app.get('/push', (req, res) => {
     res.render('push');
@@ -110,36 +105,6 @@ app.get('/', async (req, res) => {
     } catch (error) {
         console.error('Erro ao carregar produtos:', error);
         res.status(500).send('Erro ao carregar produtos');
-    }
-});
-
-app.get('/login', (req, res) => {
-    res.render('login', { messages: req.flash('error') || [] });
-});
-
-// Rota para processar o formulário de criação de admin
-app.post('/admin/create', async (req, res) => {
-    try {
-        // Código para criar o admin
-        req.flash('success', 'Admin cadastrado com sucesso');
-        res.redirect('/admin');
-    } catch (error) {
-        console.error('Erro ao cadastrar admin:', error);
-        req.flash('error', 'Erro ao cadastrar admin');
-        res.redirect('/admin/criar');
-    }
-});
-
-// Rota para processar o formulário de login de admin
-app.post('/admin/login', async (req, res) => {
-    try {
-        // Código para efetuar o login do admin
-        req.flash('success', 'Login realizado com sucesso');
-        res.redirect('/admin/login');
-    } catch (error) {
-        console.error('Erro ao realizar login:', error);
-        req.flash('error', 'Erro ao realizar login');
-        res.redirect('/admin/login');
     }
 });
 

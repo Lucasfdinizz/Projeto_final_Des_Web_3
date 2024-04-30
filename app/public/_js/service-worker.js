@@ -1,8 +1,15 @@
-const CACHE_NAME = 'cache-v1';
+/*  ao fazer requisição, adiciona cabeçalho
+self.addEventListener('fetch', function (event) {
+  console.log('teste pwa')
+  let req = new Request(event.request, {
+      headers: { "foo": "bar" }
+  });
+  event.respondWith(fetch(req));
+});*/
 
 self.addEventListener('install', function (event) {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
+    caches.open('cache-v1').then(function (cache) {
       return cache.addAll([
         '/',
         '/index',
@@ -23,20 +30,6 @@ self.addEventListener('install', function (event) {
         '/views/push.ejs',
         '/views/sobre.ejs'
       ]);
-    })
-  );
-});
-
-self.addEventListener('activate', function(event) {
-  event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.filter(function(cacheName) {
-          return cacheName.startsWith('cache-') && cacheName !== CACHE_NAME;
-        }).map(function(cacheName) {
-          return caches.delete(cacheName);
-        })
-      );
     })
   );
 });
