@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/css/sobre.css">
-    </head>
-    <body>
-        <%- include('cabecalho.ejs') %>
-        <h2><%= nome %></h2>
-        <section>
-            <h2>Formações</h2>
-            <ul>
-                <% for (let formacao of formacoes) { %>
-                    <li><%= formacao %></li>
-                <% } %>
-            </ul>
-        </section>
-        <section>
-            <h2>Experiências profissionais</h2>
-            <ul>
-                <% for (let experiencia of experiencias) { %>
-                    <li><%= experiencia %></li>
-                <% } %>
-            </ul>
-        </section>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/sobre.css">
+</head>
+<body>
+    <%- include('cabecalho.ejs') %>
+    <h2><%= sobre.nome %></h2>
+    <section>
+        <h2>Formações</h2>
+        <ul>
+            <% for (let formacao of sobre.formacoes) { %>
+                <li>
+                    <strong>Curso:</strong> <%= formacao.curso %><br>
+                    <strong>Instituição de Ensino:</strong> <%= formacao.instituicao %><br>
+                    <strong> Situação Atual:</strong> <%= formacao.status %><br>
+                    <strong>Ano de Ínicio:</strong> <%= formacao.anoInicio %>
+                </li>
+            <% } %>
+        </ul>
+    </section>
+    <section>
+        <h2>Experiências profissionais</h2>
+        <ul>
+            <% for (let experiencia of sobre.experiencias) { %>
+                <li>
+                    <strong>Nome de Guerra:</strong> <%= experiencia.nomeDeGuerra %><br>
+                    <strong>Posto/Graduação:</strong> <%= experiencia.postoGraducao %><br>
+                    <strong>Instituição:</strong> <%= experiencia.instituicao %><br>
+                    <strong>Situação Atual:</strong> <%= experiencia.status %><br>
+                    <strong>Ano de Início:</strong> <%= experiencia.anoInicio %>
+                </li>
+            <% } %>
+        </ul>
+    </section>
+</body>
 </html>

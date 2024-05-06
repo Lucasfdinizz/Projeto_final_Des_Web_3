@@ -70,4 +70,5 @@ ul {
 /* Estilo para os itens das listas */
 li {
     margin-bottom: 10px;
+    line-height: 2; /* Altere o valor conforme necessário para ajustar a distância entre as linhas */
 }

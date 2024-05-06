@@ -41,9 +41,16 @@ class AdminController {
   async create(req, res) {
     const { nome, senha } = req.body;
     const admin = new Admin({ nome, senha });
-    await admin.save();
+    try {
+        await admin.save();
+        console.log(`Admin criado com sucesso: ${admin}`);
+    } catch (error) {
+        console.error('Erro ao cadastrar admin:', error);
+        return res.status(500).json({ error: 'Erro interno do servidor' });
+    }
     res.redirect('/admins');
   }
+
 
   async list(req, res) {
     const admins = await Admin.find();
